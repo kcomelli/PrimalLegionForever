@@ -61,3 +61,4 @@
 | 2026-10-05 | Vertical scrollbar always shown (`html { overflow-y: scroll }`) so pages don't shift when switching |
 | 2026-10-05 | Tooltips: 400 ms hover delay (focus/tap immediate, hiding immediate) |
 | 2026-10-05 | Discord logo reduced to 80% (5.4em → 4.32em) |
+| 2026-10-05 | Impressum: added "Rechtlicher Hinweis & Bildnachweise" (Blizzard trademark/press material notice) |
