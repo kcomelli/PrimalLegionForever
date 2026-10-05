@@ -155,7 +155,7 @@ main {
 }
 .discord img {
   display: block;
-  width: 5.4em; /* relative to the countdown font size */
+  width: 4.32em; /* relative to the countdown font size */
   height: auto;
   filter: none; /* no glow (overrides .crest img) */
   transition: transform 0.15s ease;
