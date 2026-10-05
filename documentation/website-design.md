@@ -16,7 +16,7 @@
   - Hidden without JavaScript and once the release time is reached.
 - Discord link below the countdown (same top margin `--below-gap`), inside the shared `.below-logo` container:
   - `images/discord.svg` = copy of `media/discord.svg`, white background removed, cropped, recolored to `--gold-dark` (by `tools/build_images.py`).
-  - Width `5.4em` of the countdown font size; no glow; slight zoom on hover.
+  - Width `4.32em` of the countdown font size; no glow; slight zoom on hover.
   - Link `https://discord.gg/gnGRPBTTb`, opens in a new tab, tooltip "Primal Legion Discord Server".
 - Tooltips (custom, no `title` attributes): `<span class="tooltip">` with `role="tooltip"` + `aria-describedby`.
   - Style: navy-deep 90% background, 1px `--gold-mid` border, cream text, small arrow, 150ms fade + slide.
@@ -60,3 +60,4 @@
 | 2026-10-05 | Footer link right-aligned; fonts Cinzel (captions/links) + EB Garamond (text), self-hosted; countdown unchanged |
 | 2026-10-05 | Vertical scrollbar always shown (`html { overflow-y: scroll }`) so pages don't shift when switching |
 | 2026-10-05 | Tooltips: 400 ms hover delay (focus/tap immediate, hiding immediate) |
+| 2026-10-05 | Discord logo reduced to 80% (5.4em → 4.32em) |
