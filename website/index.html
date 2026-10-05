@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Primal Legion Forever</title>
+  <meta name="description" content="Primal Legion Forever – World of Warcraft Forever guild">
+  <meta name="theme-color" content="#00102d">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preload" as="image" type="image/webp"
+        imagesrcset="images/bg-1280.webp 1280w, images/bg-1920.webp 1920w, images/bg-2560.webp 2560w, images/bg-3840.webp 3840w"
+        imagesizes="100vw" media="(orientation: landscape)">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <picture class="background">
+    <source type="image/webp" media="(orientation: portrait)"
+            srcset="images/bg-portrait-450.webp 450w, images/bg-portrait-900.webp 900w"
+            sizes="56.25vh">
+    <source media="(orientation: portrait)"
+            srcset="images/bg-portrait-450.jpg 450w, images/bg-portrait-900.jpg 900w"
+            sizes="56.25vh">
+    <source type="image/webp"
+            srcset="images/bg-1280.webp 1280w, images/bg-1920.webp 1920w, images/bg-2560.webp 2560w, images/bg-3840.webp 3840w"
+            sizes="100vw">
+    <img src="images/bg-1920.jpg"
+         srcset="images/bg-1280.jpg 1280w, images/bg-1920.jpg 1920w, images/bg-2560.jpg 2560w, images/bg-3840.jpg 3840w"
+         sizes="100vw" alt="" fetchpriority="high">
+  </picture>
+
+  <main>
+    <header class="crest">
+      <picture class="symbol symbol-left">
+        <source type="image/webp" srcset="images/symbol-256.webp 256w, images/symbol-512.webp 512w" sizes="(max-width: 700px) 26vw, 17vw">
+        <img src="images/symbol-512.png" srcset="images/symbol-256.png 256w, images/symbol-512.png 512w"
+             sizes="(max-width: 700px) 26vw, 17vw" alt="Primal Legion guild symbol" width="512" height="512">
+      </picture>
+
+      <div class="crest-center">
+        <h1 class="logo">
+          <picture>
+            <source type="image/webp" srcset="images/logo-800.webp 800w, images/logo-1600.webp 1600w" sizes="(max-width: 700px) 90vw, 56vw">
+            <img src="images/logo-1600.png" srcset="images/logo-800.png 800w, images/logo-1600.png 1600w"
+                 sizes="(max-width: 700px) 90vw, 56vw" alt="Primal Legion Forever" width="1600" height="533">
+          </picture>
+        </h1>
+
+        <div class="below-logo">
+          <!-- Shown by the script below; stays hidden without JavaScript or after release -->
+          <div class="countdown" id="countdown" lang="de" tabindex="0" role="timer" aria-describedby="countdown-tip" hidden>
+            <span class="tooltip tooltip-side" id="countdown-tip" role="tooltip">Primal Legion Forever in ...</span>
+            <div class="unit"><span class="value" data-part="days">0</span><span class="label" data-label="days">Tage</span></div>
+            <div class="unit"><span class="value" data-part="hours">00</span><span class="label" data-label="hours">Stunden</span></div>
+            <div class="unit"><span class="value" data-part="minutes">00</span><span class="label" data-label="minutes">Minuten</span></div>
+            <div class="unit"><span class="value" data-part="seconds">00</span><span class="label" data-label="seconds">Sekunden</span></div>
+          </div>
+
+          <a class="discord" href="https://discord.gg/gnGRPBTTb" target="_blank" rel="noopener noreferrer"
+             aria-describedby="discord-tip">
+            <img src="images/discord.svg" alt="Primal Legion Discord Server" width="191" height="28">
+            <span class="tooltip tooltip-bottom" id="discord-tip" role="tooltip">Primal Legion Discord Server</span>
+          </a>
+        </div>
+      </div>
+
+      <picture class="symbol symbol-right" aria-hidden="true">
+        <source type="image/webp" srcset="images/symbol-256.webp 256w, images/symbol-512.webp 512w" sizes="17vw">
+        <img src="images/symbol-512.png" srcset="images/symbol-256.png 256w, images/symbol-512.png 512w"
+             sizes="17vw" alt="" width="512" height="512">
+      </picture>
+    </header>
+
+    <footer class="site-footer">
+      <a class="page-link" href="impressum.html">Impressum &amp; Datenschutz</a>
+    </footer>
+  </main>
+
+  <script>
+    // Countdown to the WoW Forever release: 4 Nov 2026, 15:00 PST (UTC-8) = 23:00 UTC.
+    // Date math in UTC milliseconds, so it is correct in every user time zone.
+    (function () {
+      const RELEASE = Date.UTC(2026, 10, 4, 23, 0, 0); // month is 0-based: 10 = November
+      const LABELS = {
+        days:    ["Tag", "Tage"],
+        hours:   ["Stunde", "Stunden"],
+        minutes: ["Minute", "Minuten"],
+        seconds: ["Sekunde", "Sekunden"]
+      };
+
+      const box = document.getElementById("countdown");
+      const parts = {}, labels = {};
+      for (const key in LABELS) {
+        parts[key] = box.querySelector('[data-part="' + key + '"]');
+        labels[key] = box.querySelector('[data-label="' + key + '"]');
+      }
+
+      let timer;
+      function tick() {
+        const remaining = Math.floor((RELEASE - Date.now()) / 1000);
+        if (remaining <= 0) {
+          box.hidden = true;
+          clearInterval(timer);
+          return;
+        }
+        const values = {
+          days:    Math.floor(remaining / 86400),
+          hours:   Math.floor(remaining / 3600) % 24,
+          minutes: Math.floor(remaining / 60) % 60,
+          seconds: remaining % 60
+        };
+        for (const key in values) {
+          const v = values[key];
+          parts[key].textContent = key === "days" ? v : String(v).padStart(2, "0");
+          labels[key].textContent = LABELS[key][v === 1 ? 0 : 1];
+        }
+        box.hidden = false;
+      }
+
+      tick();
+      if (!box.hidden) timer = setInterval(tick, 1000);
+
+      // Touch devices (no hover): tap the countdown to toggle its tooltip, tap elsewhere to close
+      if (window.matchMedia("(hover: none)").matches) {
+        box.addEventListener("click", function (e) {
+          e.stopPropagation();
+          box.classList.toggle("show-tip");
+        });
+        document.addEventListener("click", function () {
+          box.classList.remove("show-tip");
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
