@@ -15,7 +15,8 @@ Currently no dynamic php content like CMS or BulletinBoards planned.
 # Folder structure
 | Folder | Purpose |
 |---|---|
-| `website/` | Everything that gets deployed. `index.html` + `images/` |
+| `website/` | Everything that gets deployed. `index.html`, `impressum.html`, `style.css` + `images/` |
+| `website/fonts/` | Self-hosted web fonts (Cinzel, EB Garamond) + OFL licenses. Never use external font CDNs (privacy statement) |
 | `website/images/` | Generated, web-optimized images (do not edit by hand – regenerate) |
 | `media/` | Raw source media from the owner (big files). **Read-only.** Ignored by git (`.gitignore`) |
 | `tools/` | Helper scripts, e.g. `build_images.py` |
@@ -23,12 +24,14 @@ Currently no dynamic php content like CMS or BulletinBoards planned.
 | `tasks/` | Open tasks as markdown files; move to `tasks/done/` when finished |
 
 # Website overview
-- Single page `website/index.html`, plain HTML + inline CSS + inline JS (release countdown).
+- Single page `website/index.html` (plain HTML + inline JS for the release countdown), styles in `website/style.css`.
 - Full-screen background image (`<picture>` with WebP + JPEG, landscape sizes + a portrait crop for phones).
 - Crest in the top third: guild symbol – guild logo – guild symbol. On screens ≤ 700px: one symbol above the logo.
 - Countdown to the WoW Forever release (4 Nov 2026, 15:00 PST) below the logo, German labels.
 - Discord link (recolored `discord.svg`) below the countdown.
 - Custom styled tooltips (navy + gold) for countdown and Discord link.
+- Small footer link "Impressum & Datenschutz" → `website/impressum.html`.
+- `website/impressum.html`: same design (logo links back), two info boxes (Impressum / Datenschutzinfo) side by side, stacked on phones; spam-protected e-mail (assembled by JS).
 - See `documentation/website-design.md` and `documentation/color-scheme.md`.
 
 # Image pipeline

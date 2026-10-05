@@ -1,6 +1,6 @@
 # Website design & decisions
 
-## Layout (`website/index.html`)
+## Layout (`website/index.html`, styles in `website/style.css`)
 - Background: fixed full-viewport `<picture>`, `object-fit: cover`.
   - Landscape: `bg-*` versions, chosen by browser via `srcset`; `object-position: 29% 50%` keeps dwarf & bear in view when cropped.
   - Portrait orientation: `bg-portrait-*` (pre-cropped 9:16 around dwarf & bear).
@@ -22,8 +22,24 @@
   - Style: navy-deep 90% background, 1px `--gold-mid` border, cream text, small arrow, 150ms fade + slide.
   - Countdown: `.tooltip-side` = left of the box on screens > 900px, above it on ≤ 900px.
   - Discord: `.tooltip-bottom` = below the logo.
-  - Shown on hover (only devices with a mouse), keyboard focus, and on touch devices by tapping the countdown (JS toggles `.show-tip`, tap elsewhere closes). Discord shows no tooltip on touch (tap opens the link).
+  - Shown on hover after a 400 ms delay (only devices with a mouse), immediately on keyboard focus, and on touch devices by tapping the countdown (JS toggles `.show-tip`, tap elsewhere closes). Discord shows no tooltip on touch (tap opens the link).
   - Respects `prefers-reduced-motion`.
+- Footer (index.html): small cream link "Impressum & Datenschutz" at the bottom right (`.site-footer`, `.page-link`).
+
+## Fonts (self-hosted in `website/fonts/`, SIL OFL licenses included)
+- **Cinzel** 400/700 (`--font-display`): logo-like Roman capitals – footer/back links, Impressum captions and headings. Note: Cinzel has no lowercase, so "ß" renders as "SS".
+- **EB Garamond** 400/700 (`--font-text`): running text in the Impressum boxes.
+- Countdown keeps Georgia (owner decision).
+- Fonts are hosted locally on purpose: the Datenschutzinfo promises no external font services (e.g. Google Fonts).
+
+## Impressum page (`website/impressum.html`, `lang="de"`)
+- Same background + crest as index; crest is in normal flow (`.page-impressum .crest { position: relative }`) so the boxes follow below.
+- Logo links back to `index.html`; plus "← Zurück zur Startseite" link below the boxes.
+- Two `.info-box` sections (white 80%, rounded, like the countdown box): "Impressum / Offenlegung gemäß § 25 MedienG" and "Datenschutzinfo".
+  Side by side (each as high as its content), stacked vertically on ≤ 700px.
+- Colors: captions/headings `--gold-dark`, body text `--brown-dark` (readability).
+- E-mail spam protection: `<a class="email" data-user data-domain>`; inline JS builds the `mailto:` link. Without JS: "fuddler [at] primal-legion.net" as text.
+- Page title is a visually hidden `<h1>` (`.sr-only`).
 
 ## Decisions log (asked owner)
 | Date | Decision |
@@ -39,3 +55,8 @@
 | 2026-10-05 | Discord SVG link below countdown, same color as countdown text, new tab |
 | 2026-10-05 | Discord logo: reduced to 60% (9em → 5.4em), glow removed |
 | 2026-10-05 | Custom tooltips: navy + gold border, fade + slide; countdown left/top (responsive), Discord below; tap-to-show countdown tooltip on touch |
+| 2026-10-05 | All CSS moved from index.html into website/style.css |
+| 2026-10-05 | Impressum page: footer link on index, logo + "Zurück" link back, spam-protected mailto, gold captions + dark brown text |
+| 2026-10-05 | Footer link right-aligned; fonts Cinzel (captions/links) + EB Garamond (text), self-hosted; countdown unchanged |
+| 2026-10-05 | Vertical scrollbar always shown (`html { overflow-y: scroll }`) so pages don't shift when switching |
+| 2026-10-05 | Tooltips: 400 ms hover delay (focus/tap immediate, hiding immediate) |

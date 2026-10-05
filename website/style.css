@@ -1,0 +1,369 @@
+/* Primal Legion Forever – styles for index.html */
+/* Color scheme derived from the guild logo (gold/cream/brown) and guild symbol (royal blue/navy) */
+:root {
+  /* Fonts: Cinzel (logo-like capitals) for captions/links, EB Garamond for running text */
+  --font-display: "Cinzel", Georgia, "Times New Roman", serif;
+  --font-text:    "EB Garamond", Georgia, "Times New Roman", serif;
+
+  --gold-light: #fae5a0;
+  --gold:       #f0c972;
+  --gold-mid:   #c69547;
+  --gold-dark:  #9e6926;
+  --bronze:     #764a15;
+  --cream:      #fdf7cd;
+  --brown-dark: #1a0900;
+  --royal-blue: #002355;
+  --navy:       #011a41;
+  --navy-deep:  #00102d;
+
+  /* Sizes of the crest (logo + symbols) */
+  --logo-w: min(56vw, 900px, 72svh);
+  --symbol-w: calc(var(--logo-w) * 0.3);
+  --crest-gap: clamp(1rem, 3vw, 3.5rem);
+}
+
+/* Self-hosted fonts (SIL OFL, see fonts/OFL-*.txt) – no external font services (privacy) */
+@font-face {
+  font-family: "Cinzel";
+  src: url("fonts/cinzel-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cinzel";
+  src: url("fonts/cinzel-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "EB Garamond";
+  src: url("fonts/eb-garamond-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "EB Garamond";
+  src: url("fonts/eb-garamond-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--navy-deep); /* shown while the background image loads */
+  overflow-y: scroll; /* always show the vertical scrollbar, so pages don't shift when switching */
+}
+body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* Full-viewport background image */
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+.background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 29% 50%; /* keep dwarf & bear in view when cropped */
+  display: block;
+}
+
+main {
+  position: relative;
+  min-height: 100svh;
+}
+
+/* Crest: centered horizontally, vertically centered in the top third */
+.crest {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 33.333svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--crest-gap);
+  padding: 0 1rem;
+}
+.crest img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Medium dark glow following the image outline (alpha channel) */
+  filter:
+    drop-shadow(0 0 4px rgb(26 9 0 / 0.9))
+    drop-shadow(0 0 14px rgb(26 9 0 / 0.65));
+}
+.crest-center { position: relative; width: var(--logo-w); flex: 0 0 auto; }
+.crest .logo { margin: 0; }
+.crest .symbol { width: var(--symbol-w); flex: 0 0 auto; }
+
+/* Countdown + Discord link, hanging below the logo
+   (absolute, so the logo keeps its position in the top third) */
+.below-logo {
+  --below-gap: clamp(1rem, 3vw, 2.5rem);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: clamp(1.4rem, 2.6vw, 2.6rem);
+}
+
+/* Countdown to the WoW Forever release */
+.countdown {
+  position: relative; /* anchor for the tooltip */
+  margin-top: var(--below-gap);
+  padding: 0.2em 0.4em 0.4em 0; /* top right bottom left */
+  display: flex;
+  gap: 0.9em;
+  background: rgb(255 255 255 / 0.8);
+  border-radius: 0.25em;
+  color: var(--gold-dark);
+  white-space: nowrap;
+  cursor: default;
+}
+.countdown[hidden] { display: none; }
+.countdown .unit { display: flex; flex-direction: column; align-items: center; min-width: 2.2em; }
+.countdown .value { font-weight: bold; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.countdown .label {
+  font-size: max(0.38em, 0.7rem);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bronze);
+}
+
+/* Discord link (SVG recolored to --gold-dark by tools/build_images.py) */
+.discord {
+  position: relative; /* anchor for the tooltip */
+  display: block;
+  margin-top: var(--below-gap);
+}
+.discord img {
+  display: block;
+  width: 5.4em; /* relative to the countdown font size */
+  height: auto;
+  filter: none; /* no glow (overrides .crest img) */
+  transition: transform 0.15s ease;
+}
+.discord:hover img,
+.discord:focus-visible img { transform: scale(1.06); }
+
+/* Tooltips: navy + gold border (shield colors), cream text, small arrow.
+   Placement: countdown = left (wide screens) / top (narrow), Discord = below. */
+.tooltip {
+  --arrow: 8px;
+  position: absolute;
+  z-index: 10;
+  padding: 0.45em 0.9em;
+  background: rgb(0 16 45 / 0.9); /* --navy-deep 90% */
+  border: 1px solid var(--gold-mid);
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.45);
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: normal;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, translate 0.15s ease, visibility 0.15s;
+}
+/* Arrow: rotated square with the gold border on the two outer sides */
+.tooltip::before {
+  content: "";
+  position: absolute;
+  width: var(--arrow);
+  height: var(--arrow);
+  background: inherit;
+  border: inherit;
+  border-width: 0;
+}
+
+/* Below (Discord) */
+.tooltip-bottom {
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  translate: 0 6px; /* slide up toward the element */
+}
+.tooltip-bottom::before {
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, 50%) rotate(45deg);
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+/* Left (countdown on wide screens) */
+.tooltip-side {
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  translate: -6px 0; /* slide right toward the element */
+}
+.tooltip-side::before {
+  left: 100%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+/* Top (countdown on narrow screens) */
+@media (max-width: 900px) {
+  .tooltip-side {
+    right: auto;
+    top: auto;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    translate: 0 -6px; /* slide down toward the element */
+  }
+  .tooltip-side::before {
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border-top-width: 0;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+  }
+}
+
+/* Show: hover (mouse, after a short delay), keyboard focus or tap on touch devices
+   (.show-tip, set by script) immediately. Hiding is always immediate. */
+@media (hover: hover) {
+  .countdown:hover .tooltip,
+  .discord:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    translate: 0 0;
+    transition-delay: 400ms;
+  }
+}
+.countdown:focus-visible .tooltip,
+.discord:focus-visible .tooltip,
+.countdown.show-tip .tooltip { opacity: 1; visibility: visible; translate: 0 0; transition-delay: 0s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip { transition-duration: 0s; } /* no animation, but keep the hover delay */
+}
+
+/* Phones / narrow screens: one symbol above the logo */
+@media (max-width: 700px) {
+  :root {
+    --logo-w: min(90vw, 560px);
+    --symbol-w: min(26vw, 160px);
+    --crest-gap: 0.5rem;
+  }
+  .crest {
+    flex-direction: column;
+    height: auto;
+    min-height: 33.333svh;
+    padding-top: 1.5rem;
+  }
+  .crest .symbol-right { display: none; }
+}
+
+/* ---------- Footer link (index.html) and back link (impressum.html) ---------- */
+.site-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem clamp(1rem, 2vw, 1.75rem);
+  text-align: right;
+}
+.page-link {
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  text-shadow: 0 0 3px rgb(26 9 0 / 0.95), 0 0 8px rgb(26 9 0 / 0.7);
+}
+.page-link:hover,
+.page-link:focus-visible { color: var(--gold-light); text-decoration: underline; }
+
+/* ---------- Impressum page ---------- */
+.page-impressum .crest { position: relative; } /* in flow, so the boxes follow below */
+.crest .logo-link { display: block; }
+
+/* Visually hidden, but read by screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Two boxes side by side, same look as the countdown box */
+.info-boxes {
+  display: flex;
+  align-items: flex-start; /* each box as high as its content */
+  gap: clamp(1rem, 2.5vw, 2rem);
+  max-width: 1200px;
+  margin: clamp(1rem, 3vw, 2.5rem) auto 0;
+  padding: 0 1rem;
+}
+.info-box {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 1.1rem 1.5rem 1.4rem;
+  background: rgb(255 255 255 / 0.8);
+  border-radius: 0.6rem;
+  color: var(--brown-dark);
+  font-family: var(--font-text);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+.info-box h2,
+.info-box h3 { font-family: var(--font-display); font-weight: 700; }
+.info-box h2 {
+  margin: 0 0 0.8rem;
+  color: var(--gold-dark);
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+.info-box h3 {
+  margin: 1.2rem 0 0.3rem;
+  color: var(--gold-dark);
+  font-size: 1.05rem;
+}
+.info-box p { margin: 0 0 0.8rem; }
+.info-box p:last-child { margin-bottom: 0; }
+.info-box ul { margin: 0.3rem 0 0.8rem; padding-left: 1.3rem; }
+.info-box a { color: var(--gold-dark); }
+.info-box a:hover,
+.info-box a:focus-visible { color: var(--bronze); }
+
+.back-link {
+  padding: clamp(1.25rem, 3vw, 2rem) 1rem 2rem;
+  text-align: center;
+}
+
+/* Phones: boxes stacked vertically */
+@media (max-width: 700px) {
+  .info-boxes { flex-direction: column; }
+  .info-box { padding: 1rem 1.1rem 1.2rem; }
+}

@@ -2,7 +2,7 @@
 
 Extracted (color quantization) from `media/PLLogoDraft7.png` (guild logo) and
 `media/guild_symbol_9_512x512_transparent.png` (guild symbol).
-Defined as CSS custom properties in `website/index.html` (`:root`).
+Defined as CSS custom properties in `website/style.css` (`:root`).
 
 | Variable | Hex | Source / use |
 |---|---|---|
