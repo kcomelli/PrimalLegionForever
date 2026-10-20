@@ -15,11 +15,11 @@ Currently no dynamic php content like CMS or BulletinBoards planned.
 # Folder structure
 | Folder | Purpose |
 |---|---|
-| `website/` | Everything that gets deployed. `index.html`, `impressum.html`, `style.css` + `images/` |
+| `website/` | Everything that gets deployed. `index.html`, `impressum.html`, `style.css`, `slider.js` + `images/` |
 | `website/fonts/` | Self-hosted web fonts (Cinzel, EB Garamond) + OFL licenses. Never use external font CDNs (privacy statement) |
 | `website/images/` | Generated, web-optimized images (do not edit by hand – regenerate) |
 | `media/` | Raw source media from the owner (big files). **Read-only.** Ignored by git (`.gitignore`) |
-| `tools/` | Helper scripts, e.g. `build_images.py` |
+| `tools/` | Helper scripts: `build_images.py`, `build_video_thumbnails.py` |
 | `documentation/` | Knowledge base (design, color scheme, image pipeline, decisions) |
 | `tasks/` | Open tasks as markdown files; move to `tasks/done/` when finished |
 
@@ -30,6 +30,7 @@ Currently no dynamic php content like CMS or BulletinBoards planned.
 - Countdown to the WoW Forever release (4 Nov 2026, 15:00 PST) below the logo, German labels.
 - Discord link (recolored `discord.svg`) below the countdown.
 - Custom styled tooltips (navy + gold) for countdown and Discord link.
+- "Unsere Geschichte" video slider below the Discord link (18 old guild videos linking to YouTube, local thumbnails, buttons + auto-scroll; `website/slider.js`).
 - Small footer link "Impressum & Datenschutz" → `website/impressum.html`.
 - `website/impressum.html`: same design (logo links back), two info boxes (Impressum / Datenschutzinfo) side by side, stacked on phones; spam-protected e-mail (assembled by JS).
 - See `documentation/website-design.md` and `documentation/color-scheme.md`.
@@ -37,6 +38,7 @@ Currently no dynamic php content like CMS or BulletinBoards planned.
 # Image pipeline
 `python tools/build_images.py` (requires Pillow: `python -m pip install --user Pillow`).
 Reads from `media/`, writes to `website/images/`. Details: `documentation/image-pipeline.md`.
+Video slider thumbnails: `python tools/build_video_thumbnails.py` (downloads chosen YouTube frames, needs internet).
 
 # Tasks workflow
 - One markdown file per task in `tasks/`, named `NNN-short-name.md` (status, description, acceptance criteria).

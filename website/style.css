@@ -131,7 +131,7 @@ main {
   padding: 0.2em 0.4em 0.4em 0; /* top right bottom left */
   display: flex;
   gap: 0.9em;
-  background: rgb(255 255 255 / 0.8);
+  background: rgb(255 255 255 / 0.65);
   border-radius: 0.25em;
   color: var(--gold-dark);
   white-space: nowrap;
@@ -366,4 +366,170 @@ main {
 @media (max-width: 700px) {
   .info-boxes { flex-direction: column; }
   .info-box { padding: 1rem 1.1rem 1.2rem; }
+}
+
+/* ---------- "Unsere Geschichte" video slider (index.html, behavior in slider.js) ---------- */
+.origins {
+  --visible: 1;                 /* videos shown at once: 1 on phones up to 5 on wide screens */
+  --origins-gap: 0.75rem;
+  --origins-edge: 4.1rem;       /* distance from the box edge to the first thumbnail: padding + button + gap */
+  position: relative;
+  width: min(94vw, 1280px);
+  margin-top: var(--below-gap);
+  padding: 0.8rem 1rem 1.1rem;
+  font-size: 1rem;              /* .below-logo has a large font-size for the countdown */
+  /* No frame: semi-transparent navy (--navy-deep). It fades out to the left and right and is
+     almost fully transparent at the outer edge of the thumbnails (--origins-edge) */
+  background: linear-gradient(to right,
+    rgb(0 16 45 / 0) 0,
+    rgb(0 16 45 / 0.04) var(--origins-edge),
+    rgb(0 16 45 / 0.65) 30%,
+    rgb(0 16 45 / 0.65) 70%,
+    rgb(0 16 45 / 0.04) calc(100% - var(--origins-edge)),
+    rgb(0 16 45 / 0) 100%);
+  color: var(--cream);
+}
+@media (min-width: 560px)  { .origins { --visible: 2; } }
+@media (min-width: 850px)  { .origins { --visible: 3; } }
+@media (min-width: 1150px) { .origins { --visible: 4; } }
+@media (min-width: 1500px) { .origins { --visible: 5; } }
+
+.origins-title {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 0.7rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-shadow: 0 1px 3px rgb(0 0 0 / 0.8);
+}
+/* Gold lines fading out to both sides of the title */
+.origins-title::before,
+.origins-title::after {
+  content: "";
+  flex: 1 1 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-mid));
+}
+.origins-title::after { background: linear-gradient(to left, transparent, var(--gold-mid)); }
+
+.origins-stage {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+/* Without JavaScript the list can simply be scrolled; with it the buttons take over */
+.origins-viewport {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow-x: auto;
+}
+.origins.is-enhanced .origins-viewport { overflow: hidden; }
+
+.origins-track {
+  display: flex;
+  gap: var(--origins-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform;
+}
+.origins-item {
+  flex: 0 0 calc((100% - (var(--visible) - 1) * var(--origins-gap)) / var(--visible));
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--gold-mid);
+  border-radius: 0.3rem;
+  background: var(--navy-deep);
+}
+.origins-item a {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  outline-offset: -3px;
+}
+.origins-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none;                 /* no glow (overrides .crest img) */
+  transition: transform 0.3s ease;
+}
+.origins-item a:hover img,
+.origins-item a:focus-visible img { transform: scale(1.06); }
+
+/* Video title: caption bar slides up from the bottom of the thumbnail */
+.origins-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.45rem 0.6rem;
+  background: rgb(0 16 45 / 0.92);
+  border-top: 1px solid var(--gold-mid);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  text-align: center;
+  transform: translateY(101%);
+  transition: transform 0.2s ease;
+}
+.origins-item a:hover .origins-caption,
+.origins-item a:focus-visible .origins-caption { transform: translateY(0); }
+/* Touch devices have no hover: always show the title */
+@media (hover: none) {
+  .origins-caption { transform: translateY(0); }
+}
+
+.origins-btn {
+  display: none;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  background: rgb(0 16 45 / 0.9);
+  border: 2px solid var(--gold-mid);
+  border-radius: 50%;
+  color: var(--gold);
+  cursor: pointer;
+  /* Same dark glow as the logos */
+  box-shadow:
+    0 0 4px rgb(26 9 0 / 0.9),
+    0 0 14px rgb(26 9 0 / 0.65);
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.origins.is-enhanced .origins-btn { display: inline-flex; }
+.origins-btn:hover { background: var(--gold-dark); color: var(--cream); }
+.origins-btn:active { transform: scale(0.92); }
+.origins-btn:focus-visible { outline: 2px solid var(--cream); outline-offset: 2px; }
+.origins-btn svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 700px) {
+  .origins { --origins-edge: 3.35rem; padding: 0.7rem 0.75rem 0.9rem; }
+  .origins-stage { gap: 0.4rem; }
+  .origins-btn { width: 2.2rem; height: 2.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .origins-item img,
+  .origins-caption { transition: none; }
 }
