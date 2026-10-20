@@ -36,6 +36,7 @@
 - Videos visible at once (`--visible`): 1 (< 560px), 2 (>= 560px), 3 (>= 850px), 4 (>= 1150px), 5 (>= 1500px).
 - Video title: navy/gold caption bar slides up over the thumbnail on hover / keyboard focus; always visible on touch devices (`hover: none`).
 - Behavior: endless loop (5 hidden clones at both ends), one video per step (500 ms), auto-scroll every 3 s.
+  The clones are `aria-hidden` with `tabindex=-1` but deliberately **not** `inert`: during manual scrolling they are visible until the jump back to the originals and must still show the hover caption and be clickable.
   Auto-scroll pauses while the mouse is over the slider or a control has keyboard focus (`:focus-visible`), and is off with `prefers-reduced-motion`.
   Tabbing to a video that is out of view scrolls it into view.
 - Without JavaScript the list is a plain horizontally scrollable row (no buttons).
@@ -83,3 +84,4 @@
 | 2026-10-20 | Slider keeps navy (white preview page deleted); fade now starts at the thumbnail edges (almost fully transparent there) |
 | 2026-10-20 | Slider buttons: dark glow like the logos |
 | 2026-10-20 | Slider buttons: rectangular (80% of thumbnail height) tried, reverted - round buttons stay |
+| 2026-10-20 | Bug fix: slider clones were `inert`, so thumbnails coming in from the loop ends had no hover/link while scrolling manually - clones are no longer inert |

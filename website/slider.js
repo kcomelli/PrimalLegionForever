@@ -23,11 +23,11 @@
   if (count < CLONES) return;
   root.classList.add("is-enhanced");
 
-  // Copies at both ends make the loop endless; hidden from keyboard and screen readers
+  // Copies at both ends make the loop endless. Hidden from keyboard and screen readers, but NOT inert:
+  // when scrolling manually they are visible for a moment and must still react to hover and clicks.
   function clone(item) {
     const copy = item.cloneNode(true);
     copy.setAttribute("aria-hidden", "true");
-    copy.inert = true;
     copy.querySelector("a").tabIndex = -1;
     return copy;
   }
