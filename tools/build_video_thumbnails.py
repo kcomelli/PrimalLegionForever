@@ -18,10 +18,12 @@ OUT = Path(__file__).resolve().parent.parent / "website" / "images"
 # (youtube id, frame, title) - the title is only for reading this list; the page has its own titles
 VIDEOS = [
     ("LQnIpH0J2VI", "hq1", "PL MoltenCore Promo 2005"),
+    ("A9Te-oFUQpw", "hq1", "PL Onyxia 2005"),
     ("IfHmNh2KctY", "hqdefault", "PL BlackWing Lair 2005"),
     ("uy8V6CC2S5U", "hq1", "PL BlackWind Lair - Nefarian 2005"),
     ("1hXHz1bA64c", "hq3", "PL Sulfaras 2006"),
     ("A-9yEaQeovA", "hq3", "PL AQ20 ServerFirst 2006"),
+    ("s2TPZ3W0y3U", "hqdefault", "PL AQ40 Fankriss-Huhuran 2006"),
     ("ZdQQVecbDc4", "hq2", "PL AQ40 Twins 2006"),
     ("e0rKSQuHNI4", "hq3", "PL Naxxramas 2006"),
     ("RylU3zUkZIk", "hqdefault", "PL Kael Thas 2008"),

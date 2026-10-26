@@ -30,7 +30,7 @@ Currently no dynamic php content like CMS or BulletinBoards planned.
 - Countdown to the WoW Forever release (4 Nov 2026, 15:00 PST) below the logo, German labels.
 - Discord link (recolored `discord.svg`) below the countdown.
 - Custom styled tooltips (navy + gold) for countdown and Discord link.
-- "Unsere Geschichte" video slider below the Discord link (18 old guild videos linking to YouTube, local thumbnails, buttons + auto-scroll; `website/slider.js`).
+- "Unsere Geschichte" video slider below the Discord link (20 old guild videos linking to YouTube, local thumbnails, buttons + auto-scroll; `website/slider.js`).
 - Small footer link "Impressum & Datenschutz" → `website/impressum.html`.
 - `website/impressum.html`: same design (logo links back), two info boxes (Impressum / Datenschutzinfo) side by side, stacked on phones; spam-protected e-mail (assembled by JS).
 - See `documentation/website-design.md` and `documentation/color-scheme.md`.

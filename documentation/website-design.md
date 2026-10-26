@@ -28,7 +28,7 @@
 
 ## "Unsere Geschichte" video slider (was "Primal Legion Origins") (index.html, below the Discord link)
 - Section `.origins` inside `.below-logo`, behavior in `website/slider.js` (loaded with `defer`), styles in `style.css`.
-- 18 old guild videos (2005-2011 + "PL Forever 2026"). Each thumbnail links to YouTube (`target="_blank"`, `rel="noopener noreferrer"`).
+- 20 old guild videos (2005-2011 + "PL Forever 2026"; Onyxia and Fankriss-Huhuran added 2026-10-26). Each thumbnail links to YouTube (`target="_blank"`, `rel="noopener noreferrer"`).
   Titles and URLs are written in the HTML (list order = slider order).
 - Thumbnails are local images (`images/video-<youtube id>.webp/.jpg`, 480x270) - the page never loads anything from YouTube. See `image-pipeline.md`.
 - No frame (removed on owner request): navy-deep 65% background fading out to the left and right: almost fully transparent (4%) at the outer edge of the thumbnails (`--origins-edge`), full 65% from 30% / 70% of the width inward; no border/radius/shadow.
@@ -85,3 +85,4 @@
 | 2026-10-20 | Slider buttons: dark glow like the logos |
 | 2026-10-20 | Slider buttons: rectangular (80% of thumbnail height) tried, reverted - round buttons stay |
 | 2026-10-20 | Bug fix: slider clones were `inert`, so thumbnails coming in from the loop ends had no hover/link while scrolling manually - clones are no longer inert |
+| 2026-10-26 | Slider: added "PL Onyxia 2005" (after MoltenCore Promo) and "PL AQ40 Fankriss-Huhuran 2006" (after AQ20 ServerFirst) - 20 videos; title corrected from the typo "A40" to "AQ40" |
